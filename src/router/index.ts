@@ -17,12 +17,12 @@ const routes = [
           {
             path: 'login',
             name: 'Login',
-            component: () => import('../features/authentication/components/LoginSide.vue'),
+            component: () => import('../features/authentication/views/AuthView.vue'),
           },
           {
             path: 'register',
             name: 'Register',
-            component: () => import('../features/authentication/components/RegisterSide.vue'),
+            component: () => import('../features/authentication/views/AuthView.vue'),
           },
         ],
       }
