@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { API_URL } from '../../../config.ts';
 
 export const authStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -28,10 +29,18 @@ export const authStore = defineStore('auth', () => {
     loading.value = true;
     error.value = null;
     try {
-      const response = await api.post('/register', credentials);
-      setAuthData(response.data);
-      loading.value = false;
-      return response.data;
+      const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || response.statusText);
+      }
+      console.log('Registration successful. Logging in...');
+      await login({ email: credentials.email, password: credentials.password });
+
     } catch (err) {
       error.value = err.message;
       loading.value = false;
@@ -45,13 +54,21 @@ export const authStore = defineStore('auth', () => {
     loading.value = true;
     error.value = null;
     try {
-      const response = await api.post('/login', credentials);
-      setAuthData(response.data);
-      loading.value = false;
-      return response.data;
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || response.statusText);
+      }
+      const data = await response.json();
+      setAuthData(data);
+      return data;
     } catch (err) {
       error.value = err.message;
-      loading.value = false;
       throw err;
     } finally {
       loading.value = false;

@@ -1,0 +1,1 @@
+export const API_URL = 'https://cards-marketplace-api-2fjj.onrender.com';

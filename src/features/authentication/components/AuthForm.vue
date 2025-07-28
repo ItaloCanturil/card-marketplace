@@ -16,7 +16,11 @@
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
-    emit('submit', form);
+    emit('submit', { ...form, mode: props.mode });
+
+    form.name = '';
+    form.email = '';
+    form.password = '';
   };
 </script>
 

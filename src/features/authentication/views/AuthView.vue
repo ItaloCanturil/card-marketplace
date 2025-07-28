@@ -1,9 +1,21 @@
 <script setup lang="ts">
   import AuthForm from '../components/AuthForm.vue';
   import type { IAuthForm } from '../types';
+  import { authStore } from '../store/authStore';
+
+  const useAuth = authStore();
 
   const handleSubmit = (form: IAuthForm) => {
     console.log('Form submitted:', form);
+    if (form.mode === 'login') {
+      useAuth.login(form);
+    } else {
+      useAuth.register({
+        name: form.name || '',
+        email: form.email,
+        password: form.password
+      });
+    }
   };
 </script>
 
