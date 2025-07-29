@@ -23,11 +23,6 @@
         return;
       }
       if (!useAuth.error) {
-        toastStore.addToast({
-          message: 'Login successful',
-          type: 'success',
-        });
-
         router.push({ name: 'home' });
       }
     } else {
@@ -37,6 +32,10 @@
           email: form.email,
           password: form.password
         });
+
+        if (!useAuth.error) {
+          router.push({ name: 'home' });
+        }
       } catch (error) {
         console.log(error)
         toastStore.addToast({

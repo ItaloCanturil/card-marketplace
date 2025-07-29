@@ -38,12 +38,9 @@ export const authStore = defineStore('auth', () => {
         const errorData = await response.json().catch(() => null);
         throw new Error(errorData?.message || response.statusText);
       }
-      console.log('Registration successful. Logging in...');
-      await login({ email: credentials.email, password: credentials.password });
 
     } catch (err) {
       error.value = err.message;
-      loading.value = false;
       throw err;
     } finally {
       loading.value = false;
