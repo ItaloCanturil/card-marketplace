@@ -4,6 +4,7 @@
   const props = defineProps<{
     variant?: 'accent' | 'outline' | string;
     customClass?: string;
+    loading?: boolean;
   }>();
 
   const variantClass = computed(() => {
@@ -13,7 +14,8 @@
 </script>
 
 <template>
-  <button :class="['btn', variantClass, customClass]">
-    <slot></slot>
+  <button :class="['btn', variantClass, customClass]" :loading="loading">
+    <slot v-if="!loading"></slot>
+    <span v-if="loading" class="loading loading-infinity loading-md"></span>
   </button>
 </template>

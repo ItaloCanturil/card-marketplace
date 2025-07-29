@@ -82,5 +82,7 @@ export const authStore = defineStore('auth', () => {
     register,
     login,
     clearAuthData,
+    loading,
+    error
   };
 });

@@ -3,7 +3,8 @@
   import UiButton from '../../../components/UiButton.vue';
 
   const props = defineProps<{
-    mode: 'login' | 'register'
+    mode: 'login' | 'register';
+    loading: boolean;
   }>();
 
   const emit = defineEmits(['submit']);
@@ -49,7 +50,8 @@
           <p className="label">Adicione sua senha</p>
         </fieldset>
       </div>
-      <UiButton custom-class="w-full" @submit="handleSubmit">{{ props.mode === 'login' ? 'Entrar' : 'Criar conta' }}
+      <UiButton custom-class="w-full" :loading="loading" @submit="handleSubmit">{{ props.mode === 'login' ? 'Entrar' :
+        'Criar conta' }}
       </UiButton>
     </form>
   </div>
