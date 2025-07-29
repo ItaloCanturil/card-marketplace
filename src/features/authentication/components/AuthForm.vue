@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { reactive } from 'vue';
-  import UiButton from '../../../components/UiButton.vue';
+  import UiButton from '@/components/UiButton.vue';
 
   const props = defineProps<{
     mode: 'login' | 'register';

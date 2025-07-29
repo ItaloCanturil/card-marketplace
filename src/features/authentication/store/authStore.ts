@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { API_URL } from '../../../config.ts';
+import { API_URL } from '@/config.ts';
 
 export const authStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user') || '{}'));

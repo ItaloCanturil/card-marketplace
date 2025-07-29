@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import UiToast from './components/UiToast.vue';
+  import UiToast from '@/components/UiToast.vue';
 
 </script>
 

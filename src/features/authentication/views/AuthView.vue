@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import AuthForm from '../components/AuthForm.vue';
-  import type { IAuthForm } from '../types';
-  import { authStore } from '../store/authStore';
+  import AuthForm from '@/features/authentication/components/AuthForm.vue';
+  import type { IAuthForm } from '@/features/authentication/types';
+  import { authStore } from '@/features/authentication/store/authStore';
   import { useRouter } from 'vue-router';
-  import { useToastStore } from '../../../store/toastStore';
+  import { useToastStore } from '@/store/toastStore';
 
   const useAuth = authStore();
   const toastStore = useToastStore();

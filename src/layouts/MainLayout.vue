@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import UiHeader from '../components/UiHeader.vue'
+  import UiHeader from '@/components/UiHeader.vue'
 </script>
 
 <template>
