@@ -9,6 +9,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const useAuth = authStore();
+
+  if (to.meta.requiresGuest && useAuth.isAuthenticated) {
+    next({ name: 'Dashboard' });
+  }
+
   if (to.meta.requiresAuth && !useAuth.isAuthenticated) {
     next({ name: 'Login' });
   } else {

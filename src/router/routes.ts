@@ -11,6 +11,7 @@ export const routes = [
         path: '/auth',
         component: () => import('@/features/authentication/views/AuthView.vue'),
         redirect: '/auth/login',
+        meta: { requiresGuest: true },
         children: [
           {
             path: 'login',
