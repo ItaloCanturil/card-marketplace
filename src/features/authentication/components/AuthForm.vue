@@ -17,6 +17,8 @@
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => input.blur());
     emit('submit', { ...form, mode: props.mode });
 
     form.name = '';
@@ -32,21 +34,21 @@
       <div v-if="props.mode === 'register'">
         <fieldset className="fieldset">
           <legend className="fieldset-legend">Nome</legend>
-          <input type="text" className="input" placeholder="Type here" v-model="form.name" />
+          <input type="text" className="input" placeholder="Type here" v-model="form.name" :disabled="loading" />
           <p className="label">Adicione seu nome</p>
         </fieldset>
       </div>
       <div>
         <fieldset className="fieldset">
           <legend className="fieldset-legend">Email</legend>
-          <input type="email" className="input" placeholder="Type here" v-model="form.email" />
+          <input type="email" className="input" placeholder="Type here" v-model="form.email" :disabled="loading" />
           <p className="label">Adicione seu email</p>
         </fieldset>
       </div>
       <div>
         <fieldset className="fieldset">
           <legend className="fieldset-legend">Senha</legend>
-          <input type="password" className="input" placeholder="Type here" v-model="form.password" />
+          <input type="password" className="input" placeholder="Type here" v-model="form.password" :disabled="loading" />
           <p className="label">Adicione sua senha</p>
         </fieldset>
       </div>
