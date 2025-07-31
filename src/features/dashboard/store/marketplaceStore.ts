@@ -135,6 +135,7 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     trades,
     loading,
     error,
+    pagination,
     getAllCards,
     getCardById,
     getAllTrades,
