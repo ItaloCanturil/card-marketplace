@@ -32,5 +32,19 @@ export const routes = [
     name: 'home',
     component: () => import('@/features/dashboard/views/DashboardView.vue'),
     meta: { requiresAuth: true },
+    children: [
+      {
+        path: '/home',
+        name: 'Cards',
+        component: () => import('@/features/dashboard/views/CardView.vue'),
+        meta: { title: 'Marketplace', description: 'Encontre todas as cartas disponíveis' },
+      },
+      {
+        path: '/trades',
+        name: 'Trades',
+        component: () => import('@/features/dashboard/views/TradeView.vue'),
+        meta: { title: 'Trocas', description: 'Encontre todas as trocas disponíveis' },
+      },
+    ],
   }
 ];
