@@ -1,4 +1,11 @@
 <script setup lang="ts">
+  import { authStore } from '@/features/authentication/store/authStore';
+
+  const auth = authStore();
+
+  const logout = () => {
+    auth.clearAuthData();
+  }
 </script>
 
 <template>
@@ -30,11 +37,11 @@
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
           <li>
-            <a className="justify-between">
-              Profile
+            <a className="justify-between" href="/profile">
+              Meu Perfil
             </a>
           </li>
-          <li><a>Logout</a></li>
+          <li><a @click="logout">Logout</a></li>
         </ul>
       </div>
     </div>
