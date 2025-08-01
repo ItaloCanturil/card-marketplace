@@ -28,22 +28,21 @@ export const routes = [
     ],
   },
   {
-    path: '/home',
+    path: '/marketplace',
     name: 'home',
     component: () => import('@/features/dashboard/views/DashboardView.vue'),
-    meta: { requiresAuth: true },
     children: [
       {
-        path: '/home',
-        name: 'Cards',
-        component: () => import('@/features/dashboard/views/CardView.vue'),
-        meta: { title: 'Marketplace', description: 'Encontre todas as cartas disponíveis' },
-      },
-      {
-        path: '/trades',
+        path: '/marketplace',
         name: 'Trades',
         component: () => import('@/features/dashboard/views/TradeView.vue'),
-        meta: { title: 'Trocas', description: 'Encontre todas as trocas disponíveis' },
+        meta: { title: 'Marketplace', description: 'Encontre todas as trocas disponíveis' },
+      },
+      {
+        path: '/cards',
+        name: 'Cards',
+        component: () => import('@/features/dashboard/views/CardView.vue'),
+        meta: { title: 'Cartas', description: 'Encontre todas as cartas disponíveis', requiresAuth: true },
       },
     ],
   }
