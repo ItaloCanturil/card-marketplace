@@ -15,6 +15,7 @@ export const useToastStore = defineStore('toast', () => {
   function addToast({
     message,
     type = 'info',
+    duration = 3000,
   }: Omit<Toast, 'id'>): void {
     const id = nextId++;
     toasts.value.push({
