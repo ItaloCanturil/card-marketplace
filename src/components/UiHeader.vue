@@ -14,8 +14,10 @@
 </script>
 
 <template>
-  <header class="flex justify-between items-center">
-    <span />
+  <header class="flex justify-between items-center p-4">
+    <router-link to="/" class="mb-8 inline-block text-white font-bold text-2xl hover:opacity-80 transition-opacity">
+      CANTURIL
+    </router-link>
 
     <div class="flex gap-2">
       <UiButton variant="accent" @click="login">Login</UiButton>

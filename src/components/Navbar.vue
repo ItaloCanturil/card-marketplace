@@ -21,14 +21,14 @@
         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
           <li><a href="/">Homepage</a></li>
           <li><a href="/portfolio">Portfolio</a></li>
-          <li><a href="/trades">Negociações</a></li>
+          <li><a href="/marketplace">Negociações</a></li>
           <li><a href="/home">Cartas</a></li>
         </ul>
       </div>
     </div>
 
     <div className="navbar-end">
-      <div className="dropdown dropdown-end">
+      <div v-if="auth.isAuthenticated" className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
             <img alt="Tailwind CSS Navbar component"
@@ -43,6 +43,9 @@
           </li>
           <li><a @click="logout">Logout</a></li>
         </ul>
+      </div>
+      <div v-else>
+        <a className="btn btn-accent text-white" href="/auth/login">Login</a>
       </div>
     </div>
   </div>
