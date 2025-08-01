@@ -1,5 +1,5 @@
 <template>
-  <div class="w-68 h-80 gap-2 flex flex-col perspective bg-white px-2 py-4 rounded-lg">
+  <div class="h-80 gap-2 flex flex-col perspective bg-white px-2 py-4 rounded-lg">
     <div class="relative w-full h-full duration-500 transform-style-preserve-3d" :class="{ 'rotate-y-180': flipped }"
       @click="flipCard">
       <div class="absolute w-full h-full backface-hidden bg-base-100 rounded-xl shadow-xl overflow-hidden">

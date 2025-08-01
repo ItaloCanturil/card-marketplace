@@ -4,6 +4,7 @@
   import { authStore } from '@/features/authentication/store/authStore';
   import { useRouter } from 'vue-router';
   import { useToastStore } from '@/store/toastStore';
+  import UiHeader from '@/components/UiHeader.vue';
 
   const useAuth = authStore();
   const toastStore = useToastStore();
@@ -49,20 +50,29 @@
 </script>
 
 <template>
-  <div class="flex items-center justify-center flex-1">
-    <div class="left-panel flex-1">
+  <div class="flex flex-col lg:flex-row items-center justify-center flex-1">
+
+    <div
+      class="flex flex-col justify-center left-panel w-full lg:w-1/2 bg-[url('/public/bg-monster1.png')] bg-cover min-h-screen bg-left lg:bg-none">
+      <UiHeader class="lg:hidden" />
+      <div class="flex-1"></div>
       <AuthForm :mode="$route.path === '/auth/login' ? 'login' : 'register'" @submit="handleSubmit"
         :loading="useAuth.loading" />
+      <div class="flex-1"></div>
     </div>
 
-    <div class="right-panel flex-1">
-      <div class="flex flex-col items-center justify-center">
-        <div class="text-2xl font-bold">
-          {{ $route.path === '/auth/login' ? 'Entre com suas credenciais' : 'Crie sua conta' }}
-        </div>
-      </div>
+    <div class="right-panel hidden lg:block lg:w-1/2 min-h-screen">
+      <UiHeader />
     </div>
 
-    <!-- <LoadingScreen v-if="useAuth.loading" /> -->
   </div>
 </template>
+
+<style scoped>
+  .right-panel {
+    background-image: url('/public/bg-monster1.png');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+  }
+</style>

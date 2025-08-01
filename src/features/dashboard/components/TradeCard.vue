@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-md p-6 mb-6 max-w-4xl mx-auto w-68 min-h-68">
+  <div class="bg-white rounded-2xl shadow-md p-6 mb-6 max-w-4xl mx-auto min-h-68">
     <div class="flex items-end justify-between mb-4">
       <div>
         <p class="text-sm text-gray-500">User</p>

@@ -60,7 +60,7 @@
 </script>
 
 <template>
-  <div class="flex items-center gap-4 w-full justify-end px-4 mt-10">
+  <div class="flex items-center gap-4 w-full justify-end px-4">
     <label class="input">
       <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
