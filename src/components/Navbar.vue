@@ -22,7 +22,7 @@
           <li><a href="/">Homepage</a></li>
           <li><a href="/portfolio">Portfolio</a></li>
           <li><a href="/marketplace">Negociações</a></li>
-          <li><a href="/home">Cartas</a></li>
+          <li><a href="/cards">Cartas</a></li>
         </ul>
       </div>
     </div>
@@ -37,8 +37,8 @@
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
           <li>
-            <a className="justify-between" href="/profile">
-              Meu Perfil
+            <a className="justify-between" href="/card/me">
+              Minha coleção
             </a>
           </li>
           <li><a @click="logout">Logout</a></li>

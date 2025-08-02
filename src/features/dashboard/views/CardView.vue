@@ -21,10 +21,10 @@
 </script>
 
 <template>
-  <div class="flex flex-col items-center flex-1 w-full">
+  <div class="flex flex-col items-center flex-1 w-full mt-10">
     <div class="flex items-center">
-      <UiButton>
-        Meus cartões
+      <UiButton to="/me/cards">
+        Minhas cartas
       </UiButton>
 
       <GlobalSearchInput :items="cards" :search-keys="['name', 'description']"

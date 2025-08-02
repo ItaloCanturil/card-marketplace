@@ -34,7 +34,7 @@ export const routes = [
     children: [
       {
         path: '/marketplace',
-        name: 'Trades',
+        name: 'Marketplace',
         component: () => import('@/features/dashboard/views/TradeView.vue'),
         meta: { title: 'Marketplace', description: 'Encontre todas as trocas disponíveis' },
       },
