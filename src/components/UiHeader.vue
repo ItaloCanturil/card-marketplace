@@ -15,11 +15,11 @@
 
 <template>
   <header class="flex justify-between items-center p-4">
-    <router-link to="/" class="mb-8 inline-block text-white font-bold text-2xl hover:opacity-80 transition-opacity">
+    <router-link to="/" class="inline-block text-white font-bold text-2xl hover:opacity-80 transition-opacity">
       CANTURIL
     </router-link>
 
-    <div class="flex gap-2">
+    <div class="flex gap-2 flex-col sm:flex-row">
       <UiButton variant="accent" @click="login">Login</UiButton>
       <UiButton variant="outline" @click="register">Register</UiButton>
     </div>

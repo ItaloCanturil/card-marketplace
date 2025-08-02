@@ -1,5 +1,8 @@
 <script setup lang="ts">
-  import { reactive } from 'vue';
+  import { computed, reactive, watch } from 'vue';
+  import z from 'zod';
+  import { useField, useForm } from 'vee-validate';
+  import { toTypedSchema } from '@vee-validate/zod';
   import UiButton from '@/components/UiButton.vue';
 
   const props = defineProps<{
@@ -9,51 +12,69 @@
 
   const emit = defineEmits(['submit']);
 
-  const form = reactive({
-    name: '',
-    email: '',
-    password: ''
+  const validationSchema = toTypedSchema(
+    z.object({
+      name: props.mode === 'register' ? z.string().min(2, 'Nome deve ter pelo menos 2 caracteres') : z.string().optional(),
+      email: z.string().email('Email inválido'),
+      password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+    })
+  );
+
+  const { handleSubmit, defineField, errors, meta, resetForm } = useForm({
+    validationSchema,
   });
 
-  const handleSubmit = (e: Event) => {
-    e.preventDefault();
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => input.blur());
-    emit('submit', { ...form, mode: props.mode });
+  const [name, nameAttrs] = defineField('name');
+  const [email, emailAttrs] = defineField('email');
+  const [password, passwordAttrs] = defineField('password')
 
-    form.name = '';
-    form.email = '';
-    form.password = '';
-  };
+  const onSubmit = handleSubmit(async (values) => {
+    emit('submit', { ...values, mode: props.mode });
+  });
+
+  watch(() => props.mode, () => {
+    resetForm();
+  })
 </script>
 
 <template>
   <div class="flex justify-center">
-    <form @submit.prevent="handleSubmit">
-      <div>{{ props.mode === 'login' ? 'Entre com suas credenciais' : 'Crie sua conta' }}</div>
+    <form @submit.prevent="onSubmit" class="w-2xs flex flex-col gap-4">
+      <div class="text-center text-3xl font-bold">
+        {{ props.mode === 'login' ? 'Entre com suas credenciais' : 'Crie sua conta' }}
+      </div>
       <div v-if="props.mode === 'register'">
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">Nome</legend>
-          <input type="text" className="input" placeholder="Type here" v-model="form.name" :disabled="loading" />
-          <p className="label">Adicione seu nome</p>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Nome</legend>
+          <input type="text" class="input" placeholder="Type here" v-model="name" :disabled="loading"
+            v-bind="nameAttrs" />
+          <p :class="{ 'opacity-100': errors.name }" class="text-red-500 opacity-0">
+            {{ errors.name }}
+          </p>
         </fieldset>
       </div>
       <div>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">Email</legend>
-          <input type="email" className="input" placeholder="Type here" v-model="form.email" :disabled="loading" />
-          <p className="label">Adicione seu email</p>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Email</legend>
+          <input type="email" class="input" placeholder="Type here" v-model="email" :disabled="loading"
+            v-bind="emailAttrs" />
+          <p :class="{ 'opacity-100': errors.email }" class="text-red-500 opacity-0">
+            {{ errors.email }}
+          </p>
         </fieldset>
       </div>
       <div>
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">Senha</legend>
-          <input type="password" className="input" placeholder="Type here" v-model="form.password" :disabled="loading" />
-          <p className="label">Adicione sua senha</p>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Senha</legend>
+          <input type="password" class="input" placeholder="Type here" v-model="password" :disabled="loading"
+            v-bind="passwordAttrs" />
+          <p :class="{ 'opacity-100': errors.password }" class="text-red-500 opacity-0">
+            {{ errors.password }}
+          </p>
         </fieldset>
       </div>
-      <UiButton custom-class="w-full" :loading="loading" @submit="handleSubmit">{{ props.mode === 'login' ? 'Entrar' :
-        'Criar conta' }}
+      <UiButton custom-class="w-full" :loading="loading" @submit="onSubmit" :disabled="!meta.valid || loading">
+        {{ props.mode === 'login' ? 'Entrar' : 'Criar conta' }}
       </UiButton>
     </form>
   </div>
