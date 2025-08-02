@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import GlobalSearchInput from '@/components/GlobalSearchInput.vue';
   import TradeCard from '../components/TradeCard.vue';
+  import TradeModal from '../components/TradeModal.vue';
   import UiButton from '@/components/UiButton.vue';
   import { computed, onMounted, ref } from 'vue';
   import { useMarketplaceStore } from '../store/marketplaceStore';
@@ -15,6 +16,7 @@
   const trades = computed(() => useMarketplace.trades);
   const pagination = computed(() => useMarketplace.pagination);
   const filteredTrades = ref<ITrade[]>([]);
+  const showTradeModal = ref(false);
 
   const updateFilteredTrades = (items: ITrade[]) => {
     filteredTrades.value = items;
@@ -26,7 +28,9 @@
         message: 'Você precisa estar logado para criar uma troca',
         type: 'error'
       })
+      return;
     }
+    showTradeModal.value = true;
   }
 
   onMounted(async () => {
@@ -64,5 +68,7 @@
         <button class="join-item btn" :disabled="pagination.more">»</button>
       </div>
     </div>
+
+    <TradeModal :showModal="showTradeModal" @close="showTradeModal = false" />
   </div>
 </template>

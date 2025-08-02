@@ -6,6 +6,8 @@ import { reactive, ref } from 'vue';
 export const useMarketplaceStore = defineStore('marketplace', () => {
   const trades = ref<Array<ITrade>>([]);
   const cards = ref<Array<Card>>([]);
+  const userCards = ref<Array<Card>>([]);
+  const userTrades = ref<Array<ITrade>>([]);
   const loading = ref(false);
   const error = ref<Error | null>(null);
   const token = ref(localStorage.getItem('token'));
@@ -15,7 +17,7 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     more: false,
   });
 
-  async function getAllCards({ page = 1, rpp = 10 } = {}) {
+  async function fetchAllCards({ page = 1, rpp = 10 } = {}) {
     loading.value = true;
     error.value = null;
     try {
@@ -41,18 +43,19 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     }
   }
 
-  async function getCardById(params: { id: string }) {
+  async function fetchUserCard() {
     loading.value = true;
     error.value = null;
     try {
-      const response = await fetch(`${API_URL}/cards/${params.id}`, {
+      const response = await fetch(`${API_URL}/cards/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.value}`,
         },
       });
 
-      return response.json();
+      userCards.value = await response.json();
     } catch (err) {
       error.value = err as Error;
     } finally {
@@ -133,11 +136,13 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
   return {
     cards,
     trades,
+    userCards,
+    userTrades,
     loading,
     error,
     pagination,
-    getAllCards,
-    getCardById,
+    fetchAllCards,
+    fetchUserCard,
     getAllTrades,
     deleteTrade,
     createTrade,

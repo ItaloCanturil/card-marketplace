@@ -16,7 +16,7 @@
   }
 
   onMounted(async () => {
-    await useMarketplace.getAllCards();
+    await useMarketplace.fetchAllCards();
   })
 </script>
 

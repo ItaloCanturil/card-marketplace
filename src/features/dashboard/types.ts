@@ -1,4 +1,4 @@
-export type Card = {
+export type ICard = {
   id: string;
   name: string;
   description: string;
@@ -11,7 +11,7 @@ export type TradeCard = {
   cardId: string;
   tradeId: string;
   type: 'OFFERING' | 'RECEIVING';
-  card: Card;
+  card: ICard;
 }
 
 export type ITrade = {
