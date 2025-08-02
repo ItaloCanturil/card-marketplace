@@ -11,7 +11,7 @@ router.beforeEach((to, from, next) => {
   const useAuth = authStore();
 
   if (to.meta.requiresGuest && useAuth.isAuthenticated) {
-    next({ name: 'Dashboard' });
+    next({ name: 'Marketplace' });
   }
 
   if (to.meta.requiresAuth && !useAuth.isAuthenticated) {

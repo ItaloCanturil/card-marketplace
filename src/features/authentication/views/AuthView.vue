@@ -11,10 +11,13 @@
   const router = useRouter();
 
   const handleSubmit = async (form: IAuthForm) => {
-    console.log('Form submitted:', form);
     if (form.mode === 'login') {
       try {
         await useAuth.login(form);
+
+        if (useAuth.isAuthenticated) {
+          router.push({ name: 'Marketplace' });
+        }
       } catch (error) {
         console.log(error)
         toastStore.addToast({
@@ -23,9 +26,6 @@
         });
         return;
       }
-      if (!useAuth.error) {
-        router.push({ name: 'home' });
-      }
     } else {
       try {
         await useAuth.register({
@@ -33,10 +33,6 @@
           email: form.email,
           password: form.password
         });
-
-        if (!useAuth.error) {
-          router.push({ name: 'home' });
-        }
       } catch (error) {
         console.log(error)
         toastStore.addToast({

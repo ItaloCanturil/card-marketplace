@@ -39,6 +39,13 @@ export const authStore = defineStore('auth', () => {
         throw new Error(errorData?.message || response.statusText);
       }
 
+      const data = await login({
+        email: credentials.email,
+        password: credentials.password,
+      });
+      setAuthData(data);
+      return data;
+
     } catch (err) {
       error.value = err.message;
       throw err;
