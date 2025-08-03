@@ -14,7 +14,7 @@
   const useToast = useToastStore();
   const loading = computed(() => useMarketplace.loading);
   const trades = computed(() => useMarketplace.trades);
-  const pagination = computed(() => useMarketplace.pagination);
+  const tradesPagination = computed(() => useMarketplace.tradesPagination);
   const filteredTrades = ref<ITrade[]>([]);
   const showTradeModal = ref(false);
 
@@ -63,9 +63,9 @@
 
     <div>
       <div class="join">
-        <button class="join-item btn" :disabled="pagination.page === 1">«</button>
-        <button class="join-item btn">{{ pagination.page }}</button>
-        <button class="join-item btn" :disabled="pagination.more">»</button>
+        <button class="join-item btn" :disabled="tradesPagination.page === 1">«</button>
+        <button class="join-item btn">{{ tradesPagination.page }}</button>
+        <button class="join-item btn" :disabled="tradesPagination.more">»</button>
       </div>
     </div>
 
