@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
+  <divs>
     <h1>Profile View</h1>
-  </div>
+  </divs>
 </template>
