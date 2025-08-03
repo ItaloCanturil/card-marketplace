@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { API_URL } from '@/config.ts';
+import { API_URL } from '@/config';
 
 export const authStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user') || '{}'));
   const token = ref(localStorage.getItem('token') || '');
-  const error = ref(null);
+  const error = ref<string | null>(null);
   const loading = ref(false);
 
   const isAuthenticated = computed(() => !!token.value && !!user.value);
@@ -47,7 +47,7 @@ export const authStore = defineStore('auth', () => {
       return data;
 
     } catch (err) {
-      error.value = err.message;
+      error.value = err instanceof Error ? err.message : 'An unknown error occurred';
       throw err;
     } finally {
       loading.value = false;
@@ -72,7 +72,7 @@ export const authStore = defineStore('auth', () => {
       setAuthData(data);
       return data;
     } catch (err) {
-      error.value = err.message;
+      error.value = err instanceof Error ? err.message : 'An unknown error occurred';
       throw err;
     } finally {
       loading.value = false;

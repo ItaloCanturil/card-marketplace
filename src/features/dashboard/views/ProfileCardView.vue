@@ -5,14 +5,15 @@
   import GlobalSearchInput from '@/components/GlobalSearchInput.vue';
   import Card from '../components/Card.vue';
   import CardModal from '../components/CardModal.vue';
+  import { ICard } from '../types';
 
   const useMarketplace = useMarketplaceStore();
   const cards = computed(() => useMarketplace.userCards);
-  const filteredCards = ref<object[]>([]);
+  const filteredCards = ref<ICard[]>([]);
   const loading = computed(() => useMarketplace.loading);
   const showModal = ref(false);
 
-  const updateFilteredCards = (items: object[]) => {
+  const updateFilteredCards = (items: ICard[]) => {
     filteredCards.value = items;
   }
 

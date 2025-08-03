@@ -5,11 +5,12 @@
   import { computed, onMounted, ref } from 'vue';
   import Card from '../components/Card.vue';
   import Pagination from '@/components/Pagination.vue';
+  import { ICard } from '../types';
 
   const useMarketplace = useMarketplaceStore();
 
   const cards = computed(() => useMarketplace.cards);
-  const filteredCards = ref<object[]>([]);
+  const filteredCards = ref<ICard[]>([]);
   const loading = computed(() => useMarketplace.loading);
   const cardsPagination = computed(() => useMarketplace.cardsPagination);
 
@@ -17,7 +18,7 @@
     await useMarketplace.fetchAllCards({ page });
   }
 
-  const updateFilteredCards = (items: object[]) => {
+  const updateFilteredCards = (items: ICard[]) => {
     filteredCards.value = items;
   }
 
@@ -42,7 +43,7 @@
     </div>
 
     <div>
-      <Pagination :page="cardsPagination.page" :more="cardsPagination.more" @update:page="updatePage" />
+      <Pagination v-if="!loading" :page="cardsPagination.page" :more="cardsPagination.more" @update:page="updatePage" />
     </div>
   </div>
 

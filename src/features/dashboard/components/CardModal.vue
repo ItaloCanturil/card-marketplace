@@ -20,7 +20,7 @@
   const cards = computed(() => useMarketplace.cards);
 
   const handleSubmit = async () => {
-    await useMarketplace.addCard({ cardIds: [receivingCard.value!.id] });
+    await useMarketplace.addCard([receivingCard.value!.id]);
     if (useMarketplace.error) {
       useToast.addToast({
         message: useMarketplace.error.message,

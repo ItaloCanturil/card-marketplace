@@ -16,7 +16,7 @@
 <template>
   <div class="flex flex-col items-center min-h-screen">
     <Navbar />
-    <MarketplaceBanner :title="pageTitle" :description="pageDescription" />
+    <MarketplaceBanner :title="pageTitle.toString()" :description="pageDescription?.toString()" />
 
     <router-view />
   </div>

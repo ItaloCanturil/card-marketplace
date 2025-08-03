@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { computed, reactive, watch } from 'vue';
+  import { watch } from 'vue';
   import z from 'zod';
-  import { useField, useForm } from 'vee-validate';
+  import { useForm } from 'vee-validate';
   import { toTypedSchema } from '@vee-validate/zod';
   import UiButton from '@/components/UiButton.vue';
 

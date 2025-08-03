@@ -3,19 +3,20 @@
   import { useMarketplaceStore } from '../store/marketplaceStore';
   import UiButton from '@/components/UiButton.vue';
   import GlobalSearchInput from '@/components/GlobalSearchInput.vue';
-  import Card from '../components/Card.vue';
   import TradeModal from '../components/TradeModal.vue';
   import { authStore } from '@/features/authentication/store/authStore';
+  import { ITrade } from '../types';
+  import TradeCard from '../components/TradeCard.vue';
 
   const useAuth = authStore();
   const useMarketplace = useMarketplaceStore();
   const trades = computed(() => useMarketplace.userTrades);
-  const filteredTrades = ref<object[]>([]);
+  const filteredTrades = ref<ITrade[]>([]);
   const loading = computed(() => useMarketplace.loading);
-  const pagination = computed(() => useMarketplace.pagination);
+  const pagination = computed(() => useMarketplace.tradesPagination);
   const showTradeModal = ref(false);
 
-  const updateFilteredTrades = (items: object[]) => {
+  const updateFilteredTrades = (items: ITrade[]) => {
     filteredTrades.value = items;
   }
 
@@ -41,7 +42,7 @@
     </div>
     <div v-if="filteredTrades.length"
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 w-full place-items-center">
-      <Card v-if="!loading" v-for="trade in filteredTrades" :key="trade.id" :data="trade" />
+      <TradeCard v-if="!loading" v-for="trade in filteredTrades" :key="trade.id" :trade="trade" />
       <div v-if="loading" v-for="i in 10" :key="i" class="skeleton w-full h-64 rounded-md"></div>
     </div>
     <div v-if="!loading && !filteredTrades.length" class="flex flex-col items-center justify-center mt-5">
