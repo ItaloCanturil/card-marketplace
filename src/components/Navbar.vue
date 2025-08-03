@@ -38,7 +38,17 @@
         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
           <li>
             <a className="justify-between" href="/me/cards">
-              Minha coleção
+              Minhas cartas
+            </a>
+          </li>
+          <li>
+            <a className="justify-between" href="/me/trades">
+              Minhas negociações
+            </a>
+          </li>
+          <li>
+            <a className="justify-between" href="/me">
+              Profile
             </a>
           </li>
           <li><a @click="logout">Logout</a></li>

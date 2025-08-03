@@ -63,7 +63,31 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     }
   }
 
-  async function getAllTrades({ page = 1, rpp = 10 } = {}) {
+  async function addCard(params: { cardIds: string[] }) {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await fetch(`${API_URL}/me/cards`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token.value}`,
+        },
+        body: JSON.stringify(params),
+      });
+
+      if (response.ok) {
+        fetchUserCard();
+      }
+    } catch (err) {
+      error.value = err as Error;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function fetchAllTrades({ page = 1, rpp = 10 } = {}) {
     loading.value = true;
     error.value = null;
     try {
@@ -87,6 +111,11 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     } finally {
       loading.value = false;
     }
+  }
+
+  async function findUserTrades(data: ITrade[], userId: string) {
+    userTrades.value = data.filter((trade) => trade.userId === userId);
+    return userTrades.value;
   }
 
   async function deleteTrade(params: { id: string }) {
@@ -143,7 +172,9 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     pagination,
     fetchAllCards,
     fetchUserCard,
-    getAllTrades,
+    fetchAllTrades,
+    findUserTrades,
+    addCard,
     deleteTrade,
     createTrade,
   };

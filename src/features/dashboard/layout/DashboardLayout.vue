@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import MarketplaceBanner from '@/features/dashboard/components/MarketplaceBanner.vue';
   import Navbar from '@/components/Navbar.vue';
-  import { computed, onMounted, watch } from 'vue';
+  import { computed } from 'vue';
   import { useRoute } from 'vue-router';
 
   const route = useRoute();

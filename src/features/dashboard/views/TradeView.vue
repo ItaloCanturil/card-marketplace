@@ -34,7 +34,7 @@
   }
 
   onMounted(async () => {
-    await useMarketplace.getAllTrades();
+    await useMarketplace.fetchAllTrades();
   })
 </script>
 

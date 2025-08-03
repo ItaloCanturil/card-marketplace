@@ -29,8 +29,8 @@ export const routes = [
   },
   {
     path: '/marketplace',
-    name: 'home',
-    component: () => import('@/features/dashboard/views/DashboardView.vue'),
+    name: 'Dashboard',
+    component: () => import('@/features/dashboard/layout/DashboardLayout.vue'),
     children: [
       {
         path: '/marketplace',
@@ -45,10 +45,22 @@ export const routes = [
         meta: { title: 'Cartas', description: 'Encontre todas as cartas disponíveis', requiresAuth: true },
       },
       {
+        path: '/me',
+        name: 'Profile',
+        component: () => import('@/features/dashboard/views/ProfileView.vue'),
+        meta: { title: 'Perfil', description: '', requiresAuth: true },
+      },
+      {
         path: '/me/cards',
         name: 'ProfileCards',
         component: () => import('@/features/dashboard/views/ProfileCardView.vue'),
         meta: { title: 'Minhas cartas', description: '', requiresAuth: true },
+      },
+      {
+        path: '/me/trades',
+        name: 'ProfileTrades',
+        component: () => import('@/features/dashboard/views/ProfileTradeView.vue'),
+        meta: { title: 'Minhas trocas', description: '', requiresAuth: true },
       }
     ],
   }
