@@ -10,6 +10,10 @@
     "noEmit": false,
     "jsx": "preserve",
     "baseUrl": "src",
+    
+    /* Add this line */
+    "allowSyntheticDefaultImports": true,
+    
     "paths": {
       "@/*": ["./*"],
       "~/*": ["./*"],
