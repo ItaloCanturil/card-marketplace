@@ -18,7 +18,7 @@ Desenvolver uma aplicação **SPA** com **Vue 3**, focada em front-end e experi�
   - Escolher cartas de outros usuários que deseja receber  
 - ✅ Deletar trocas criadas  
 - ✅ Visualizar a **paginção** de cartas
-- ✅ Filtrar cartas por nome, tipo, rarity, etc.
+- ✅ Filtrar cartas por nome
 - ✅ Visualizar detalhes de uma carta
 - ✅ Adicionar cartas à conta do usuário
 
