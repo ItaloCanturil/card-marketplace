@@ -1,17 +1,24 @@
 import { defineStore } from 'pinia'
 import { API_URL } from '@/config'
-import type { Card, ITrade } from '../types';
+import type { ICard, ITrade } from '../types';
 import { reactive, ref } from 'vue';
 
 export const useMarketplaceStore = defineStore('marketplace', () => {
   const trades = ref<Array<ITrade>>([]);
-  const cards = ref<Array<Card>>([]);
-  const userCards = ref<Array<Card>>([]);
+  const cards = ref<Array<ICard>>([]);
+  const userCards = ref<Array<ICard>>([]);
   const userTrades = ref<Array<ITrade>>([]);
   const loading = ref(false);
   const error = ref<Error | null>(null);
   const token = ref(localStorage.getItem('token'));
-  const pagination = reactive({
+
+  const cardsPagination = reactive({
+    rpp: 10,
+    page: 1,
+    more: false,
+  });
+
+  const tradesPagination = reactive({
     rpp: 10,
     page: 1,
     more: false,
@@ -33,9 +40,9 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
 
       const data = await response.json();
       cards.value = data.list;
-      pagination.more = data.more;
-      pagination.page = page;
-      pagination.rpp = rpp;
+      cardsPagination.more = data.more;
+      cardsPagination.page = page;
+      cardsPagination.rpp = rpp;
     } catch (err) {
       error.value = err as Error;
     } finally {
@@ -63,7 +70,7 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     }
   }
 
-  async function addCard(params: { cardIds: string[] }) {
+  async function addCard(cardIds: string[]) {
     loading.value = true;
     error.value = null;
     try {
@@ -73,12 +80,13 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token.value}`,
         },
-        body: JSON.stringify(params),
+        body: JSON.stringify(cardIds),
       });
 
       if (response.ok) {
         fetchUserCard();
       }
+      return;
     } catch (err) {
       error.value = err as Error;
       throw err;
@@ -103,9 +111,9 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
 
       const data = await response.json();
       trades.value = data.list;
-      pagination.more = data.more;
-      pagination.page = page;
-      pagination.rpp = rpp;
+      tradesPagination.more = data.more;
+      tradesPagination.page = page;
+      tradesPagination.rpp = rpp;
     } catch (err) {
       error.value = err as Error;
     } finally {
@@ -169,7 +177,8 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     userTrades,
     loading,
     error,
-    pagination,
+    cardsPagination,
+    tradesPagination,
     fetchAllCards,
     fetchUserCard,
     fetchAllTrades,
