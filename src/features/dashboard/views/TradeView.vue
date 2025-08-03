@@ -33,6 +33,22 @@
     showTradeModal.value = true;
   }
 
+  const handleDeleteTrade = async (tradeId: string) => {
+    try {
+      await useMarketplace.deleteTrade({ id: tradeId });
+      useToast.addToast({
+        message: 'Troca excluída com sucesso',
+        type: 'success'
+      })
+    } catch (error) {
+      console.error('Error deleting trade:', error);
+      useToast.addToast({
+        message: 'Erro ao excluir a troca',
+        type: 'error'
+      })
+    }
+  }
+
   onMounted(async () => {
     await useMarketplace.fetchAllTrades();
   })
@@ -57,7 +73,8 @@
         </div>
       </div>
 
-      <TradeCard v-if="!loading" v-for="trade in filteredTrades" :trade="trade" :key="trade.id" />
+      <TradeCard v-if="!loading" v-for="trade in filteredTrades" :trade="trade" :key="trade.id"
+        @deleteTrade="handleDeleteTrade" />
       <div v-else v-for="i in 10" :key="i" class="skeleton w-full h-64 rounded-md"></div>
     </div>
 

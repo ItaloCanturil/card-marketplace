@@ -2,13 +2,25 @@
   import { computed } from 'vue';
   import type { ITrade } from '../types';
   import { formatDate } from '@/utils/formatDate';
+  import { authStore } from '@/features/authentication/store/authStore';
 
   const props = defineProps<{
     trade: ITrade;
   }>();
 
+  const emit = defineEmits(['deleteTrade']);
+
   const offering = computed(() => props.trade.tradeCards.filter((tradeCard) => tradeCard.type === 'OFFERING'));
   const receiving = computed(() => props.trade.tradeCards.filter((tradeCard) => tradeCard.type === 'RECEIVING'));
+  const useTrades = computed(() => props.trade.userId === authStore().user.id);
+
+  const handleDeleteTrade = async () => {
+    try {
+      emit('deleteTrade', props.trade.id);
+    } catch (error) {
+      console.error('Error deleting trade:', error);
+    }
+  }
 </script>
 
 <template>
@@ -17,10 +29,12 @@
       <div>
         <p class="text-sm text-gray-500">User</p>
         <p class="font-semibold text-gray-800">{{ props.trade.user.name }}</p>
+        <p class="text-sm text-gray-500">{{ formatDate(props.trade.createdAt) }}</p>
       </div>
-      <div class="text-sm text-gray-500">
-        <p>{{ formatDate(props.trade.createdAt) }}</p>
-      </div>
+      <button v-if="useTrades" class="btn btn-circle btn-sm bg-white text-error border-none hover:scale-110
+        transition" @click="handleDeleteTrade">
+        <span>🗑️</span>
+      </button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
